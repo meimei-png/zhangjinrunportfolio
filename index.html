@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>张瑾润｜内容策划与视觉表达作品集</title>
+<meta name="description" content="张瑾润内容策划与视觉表达作品集，涵盖文字作品、排版作品与视频作品。">
+<style>
+  :root{
+    --bg:#f3f1ed;
+    --bg2:#faf8f4;
+    --text:#171717;
+    --muted:#6b7280;
+    --line:rgba(23,23,23,.08);
+    --card:rgba(255,255,255,.78);
+    --white:#fff;
+    --shadow:0 18px 40px rgba(0,0,0,.06);
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--text);
+    background:radial-gradient(circle at top, var(--bg2) 0%, var(--bg) 45%, #efede8 100%);
+    font-family: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    overflow-x:hidden;
+  }
+  body.overflow-lock{overflow:hidden}
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+  .container{width:min(1200px, calc(100% - 32px));margin:0 auto}
+  .section-label{
+    display:inline-block;
+    margin-bottom:16px;
+    font-size:12px;
+    letter-spacing:.28em;
+    color:#737373;
+    text-transform:uppercase;
+  }
+
+  .loader{
+    position:fixed;inset:0;background:#fff;z-index:10000;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  .loader.hidden{opacity:0;visibility:hidden}
+  .loader-line{width:0;height:1px;background:#000;margin-bottom:18px;transition:width 1.1s ease}
+  .loader-text{opacity:0;letter-spacing:.35em;font-size:18px;transition:opacity .8s ease .2s, transform .8s ease .2s;transform:translateY(8px)}
+
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;
+    overflow:hidden;padding:40px 20px;
+  }
+  .hero-img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    filter:grayscale(100%);transition:transform .9s ease, filter .9s ease;
+    background:#ddd;
+  }
+  .hero:hover .hero-img{filter:grayscale(20%);transform:scale(1.03)}
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom, rgba(255,255,255,.42), rgba(255,255,255,.82));
+  }
+  .hero-inner{position:relative;z-index:1;text-align:center;padding:0 16px}
+  .hero-badge{
+    display:inline-flex;gap:10px;align-items:center;padding:10px 16px;border-radius:999px;
+    border:1px solid rgba(0,0,0,.08);background:rgba(255,255,255,.65);font-size:12px;
+    letter-spacing:.22em;text-transform:uppercase;color:#525252;margin-bottom:20px;
+  }
+  .hero-title{
+    font-size:clamp(56px, 12vw, 150px);font-weight:800;line-height:1;letter-spacing:-.04em;margin:0;
+  }
+  .hero-sub{margin-top:24px;font-size:14px;letter-spacing:.35em;color:#4b5563}
+  .guide-bar{
+    position:absolute;right:28px;bottom:28px;width:2px;height:72px;background:rgba(0,0,0,.08);overflow:hidden;
+  }
+  .guide-bar::after{
+    content:"";position:absolute;inset:0;background:#000;animation:breathe 2s infinite;
+  }
+  @keyframes breathe{
+    0%,100%{transform:translateY(-100%)}
+    50%{transform:translateY(100%)}
+  }
+
+  .about{
+    padding:64px 0;
+    background:rgba(255,255,255,.75);
+    backdrop-filter: blur(4px);
+  }
+  .about-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;
+  }
+  .about-left{position:sticky;top:24px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;color:#9ca3af;margin-bottom:28px}
+  .about-name{font-size:clamp(36px, 5vw, 54px);margin:0 0 24px;font-weight:800}
+  .about-copy p{margin:0 0 14px;color:#6b7280;line-height:1.9;font-size:14px;max-width:540px}
+  .skill-list{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+  .skill-tag{
+    padding:10px 16px;border:1px solid #e5e7eb;border-radius:999px;font-size:12px;background:#fff;transition:.25s;
+  }
+  .skill-tag:hover{background:#111;color:#fff;border-color:#111;transform:translateY(-2px)}
+  .timeline{perspective:1200px}
+  .timeline-item{display:flex;gap:24px;margin-bottom:24px}
+  .timeline-side{display:flex;flex-direction:column;align-items:center}
+  .timeline-dot{width:8px;height:8px;background:#d1d5db;border-radius:50%}
+  .timeline-line{width:1px;flex:1;background:#f0f0f0;margin-top:8px}
+  .timeline-card{
+    flex:1;background:var(--card);border:1px solid rgba(0,0,0,.05);border-radius:20px;
+    padding:28px;box-shadow:0 8px 18px rgba(0,0,0,.02);transition:.4s;
+  }
+  .timeline-item:hover .timeline-card{
+    transform:translateY(-6px) rotateY(-4deg);
+    background:rgba(255,255,255,.92);
+    box-shadow:0 24px 50px rgba(0,0,0,.08);
+  }
+  .timeline-date{font-size:13px;font-weight:700;color:#9ca3af;letter-spacing:.14em}
+  .timeline-title{font-size:18px;font-weight:800;margin:10px 0 0}
+  .timeline-role{font-size:14px;color:#6b7280;margin-top:8px;font-style:italic}
+
+  .works{
+    min-height:100vh;
+    padding:110px 0 90px;
+    background:#f6f4ef;
+    display:flex;
+    align-items:center;
+  }
+  .works-grid{
+    display:grid;
+    grid-template-columns:minmax(320px, 1fr) minmax(320px, 460px);
+    gap:56px;
+    align-items:center;
+  }
+  .donut-wrap{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:560px;
+    padding:20px 0 10px;
+  }
+  .donut-container{
+    position:relative;
+    width:min(450px, 90vw);
+    height:min(450px, 90vw);
+    margin:0 auto;
+    transform:translateY(18px);
+  }
+  .donut-segment{
+    position:absolute;width:min(180px, 34vw);height:min(180px, 34vw);border-radius:999px;
+    border:1px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 14px 34px rgba(0,0,0,.045);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:0 14px;font-size:18px;font-weight:800;cursor:pointer;transition:.3s;user-select:none;
+  }
+  .donut-segment:hover,.donut-segment:focus-visible{
+    background:#111;color:#fff;transform:scale(1.08);outline:none;z-index:10;
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+  }
+  .intro-panel{
+    border:1px solid rgba(0,0,0,.06);
+    border-radius:28px;
+    background:rgba(255,255,255,.56);
+    box-shadow:var(--shadow);
+    padding:36px;
+    align-self:center;
+    margin-top:28px;
+  }
+  .works-title{font-size:clamp(56px, 9vw, 110px);font-weight:800;line-height:1;margin:0 0 20px}
+  .works-copy{font-size:14px;line-height:2;color:#6b7280;max-width:420px}
+
+  .modal{
+    position:fixed;inset:0;z-index:9000;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);
+    display:none;align-items:center;justify-content:center;padding:24px;
+  }
+  .modal.visible{display:flex}
+  .modal-card{
+    width:min(1100px, 100%);display:grid;grid-template-columns:1.1fr .75fr;gap:28px;align-items:center;
+    position:relative;
+  }
+  .close-btn{
+    position:absolute;top:-8px;right:-4px;background:none;border:none;font-size:34px;cursor:pointer;color:#111;
+  }
+  .modal-title{font-size:clamp(38px, 5vw, 58px);margin:0 0 20px;font-weight:800}
+  .modal-desc{font-size:15px;line-height:1.9;color:#6b7280;max-width:560px;margin-bottom:34px}
+  .open-detail-btn{
+    display:inline-block;border:none;background:none;border-bottom:2px solid #111;padding:0 0 8px;
+    font-size:14px;font-weight:800;letter-spacing:.12em;cursor:pointer;
+  }
+  .modal-image img{
+    width:100%;height:min(500px, 65vh);object-fit:cover;border-radius:18px;box-shadow:0 24px 40px rgba(0,0,0,.14);background:#e5e7eb;
+  }
+
+  .floating-hint{
+    position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-8px);z-index:10020;
+    background:rgba(17,17,17,.94);color:#fff;border-radius:999px;padding:14px 20px;font-size:13px;
+    font-weight:700;letter-spacing:.12em;opacity:0;pointer-events:none;transition:.28s;white-space:nowrap;
+    box-shadow:0 20px 40px rgba(0,0,0,.18);
+  }
+  .floating-hint.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  .detail{
+    position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,.985);display:none;
+    overflow-x:auto;overflow-y:hidden;white-space:nowrap;scrollbar-width:none;-ms-overflow-style:none;
+    cursor:grab;
+  }
+  .detail::-webkit-scrollbar{display:none}
+  .detail.visible{display:block}
+  .detail-scroller{
+    display:inline-flex;gap:32px;align-items:center;min-height:100vh;padding:40px 8vw;
+  }
+  .detail-intro{min-width:380px;max-width:420px;white-space:normal;margin-right:12px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
+  .meta-chip{
+    display:inline-flex;align-items:center;padding:8px 12px;border:1px solid rgba(0,0,0,.08);
+    border-radius:999px;background:rgba(255,255,255,.75);font-size:12px;color:#525252;
+  }
+  .back-btn{
+    border:none;background:none;padding:0;margin:0 0 34px;cursor:pointer;font-size:12px;font-weight:800;
+    letter-spacing:.12em;color:#111;opacity:.45;
+  }
+  .back-btn:hover{opacity:1}
+  .detail-title{font-size:clamp(40px, 6vw, 68px);line-height:1.05;margin:0 0 18px;font-weight:800}
+  .detail-info{max-width:320px;color:#6b7280;line-height:1.9;font-size:14px;white-space:normal}
+
+  .work-card{
+    width:min(360px, 78vw);display:flex;flex-direction:column;gap:14px;white-space:normal;
+    transition:transform .3s ease, filter .3s ease;filter:grayscale(100%);
+  }
+  .work-card:hover,.work-card:focus-within{filter:grayscale(0);transform:translateY(-6px)}
+  .work-link{
+    display:block;position:relative;overflow:hidden;border-radius:20px;background:#f3f4f6;box-shadow:0 12px 30px rgba(0,0,0,.06);
+  }
+  .work-link img{
+    width:100%;aspect-ratio:3/4;object-fit:cover;transition:transform .45s ease;background:#e5e7eb;
+  }
+  .work-link:hover img,.work-link:focus-visible img{transform:scale(1.04)}
+  .work-link:focus-visible{outline:2px solid #000;outline-offset:2px}
+  .click-overlay{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;
+    padding:16px;background:linear-gradient(to top, rgba(0,0,0,.6), rgba(0,0,0,.24));
+    color:#fff;font-size:14px;font-weight:800;letter-spacing:.12em;opacity:0;transition:.25s;
+  }
+  .work-link:hover .click-overlay,.work-link:focus-visible .click-overlay{opacity:1}
+  .item-meta{font-size:10px;font-weight:800;letter-spacing:.16em;color:#9ca3af;text-transform:uppercase}
+  .item-title{font-size:18px;font-weight:800;margin-top:4px}
+  .item-desc{font-size:13px;line-height:1.7;color:#6b7280;margin-top:4px}
+
+  .fallback{
+    background:linear-gradient(135deg, #efefef, #dcdcdc);
+  }
+
+  @media (max-width: 980px){
+    .about-grid,.works-grid,.modal-card{grid-template-columns:1fr}
+    .about-left{position:static}
+    .works{min-height:auto;padding:72px 0 56px}
+    .donut-wrap{min-height:420px;padding:0}
+    .donut-container{transform:none}
+    .intro-panel{padding:24px;margin-top:0}
+    .modal-card{max-width:760px}
+    .close-btn{top:-14px;right:0}
+  }
+
+  @media (max-width: 768px){
+    .hero{padding:32px 16px}
+    .hero-sub{letter-spacing:.22em}
+    .guide-bar{right:20px;bottom:20px}
+    .about{padding:48px 0}
+    .works{padding:48px 0}
+    .detail{
+      overflow-y:auto;overflow-x:hidden;white-space:normal;cursor:auto;
+    }
+    .detail-scroller{
+      display:grid;min-height:auto;padding:88px 20px 32px;gap:20px;
+    }
+    .detail-intro{min-width:auto;max-width:none;margin-right:0}
+    .detail-info{max-width:none}
+    .click-overlay{
+      opacity:1;
+      background:linear-gradient(to top, rgba(0,0,0,.62), rgba(0,0,0,.18));
+      font-size:12px;
+    }
+    .floating-hint{font-size:12px;letter-spacing:.08em;padding:12px 16px}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{animation:none !important;transition:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+  <div id="loader" class="loader" aria-hidden="true">
+    <div id="loaderLine" class="loader-line"></div>
+    <div id="loaderText" class="loader-text">ZHANG JINRUN EXHIBITION</div>
+  </div>
+
+  <main>
+    <section class="hero" aria-label="封面">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2000" alt="封面背景图" loading="eager">
+      <div class="hero-overlay"></div>
+      <div class="hero-inner">
+        <div class="hero-badge"><span>Portfolio</span><span>·</span><span>Content & Visual Works</span></div>
+        <h1 class="hero-title">JINRUN</h1>
+        <p class="hero-sub">内容策划 / 排版设计 / 视频剪辑</p>
+      </div>
+      <a href="#works-section" class="guide-bar" aria-label="滚动查看作品内容"></a>
+    </section>
+
+    <section class="about" aria-label="个人简介">
+      <div class="container about-grid">
+        <div class="about-left">
+          <div class="eyebrow">CONTENT CREATOR / EDITOR</div>
+          <span class="section-label">About Me</span>
+          <h2 class="about-name">张瑾润</h2>
+          <div class="about-copy">
+            <p>具备内容策划、编辑采编与视频剪辑的复合能力，拥有媒体平台公司、杂志等内容及品牌传播经验。</p>
+            <p>擅长从选题到表达的完整内容构建，对人物内容、视觉表达及风格化叙事具有敏感度。</p>
+            <p>能够根据不同传播语境进行内容适配，具备多类型文风写作能力，兼顾表达准确性、内容质感与传播效果。</p>
+          </div>
+          <div class="skill-list">
+            <div class="skill-tag">文案编辑</div>
+            <div class="skill-tag">排版设计</div>
+            <div class="skill-tag">视频剪辑</div>
+          </div>
+        </div>
+
+        <div class="timeline" aria-label="经历时间轴">
+          <span class="section-label">Experience</span>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-date">2025.08 - 2026.03</div>
+              <div class="timeline-title">青岛蓝色向尚创意有限公司</div>
+              <div class="timeline-role">新媒体运营</div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-date">2024.10 - 2025.02</div>
+              <div class="timeline-title">中航工业贵州新安公司</div>
+              <div class="timeline-role">文宣干事</div>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-side">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-card">
+              <div class="timeline-date">2023.04 - 2024.03</div>
+              <div class="timeline-title">贵州悦读文化传媒有限公司</div>
+              <div class="timeline-role">内容采编</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="works" id="works-section" aria-label="作品目录">
+      <div class="container works-grid">
+        <div class="donut-wrap">
+          <div id="donutCircle" class="donut-container" aria-label="作品分类导航"></div>
+        </div>
+        <div class="intro-panel">
+          <span class="section-label">Selected Projects</span>
+          <h2 class="works-title">WORKS</h2>
+          <p class="works-copy">围绕内容策划、视觉表达与视频剪辑三个方向，集中展示代表性项目。点击分类，可进一步查看具体作品。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalOverlay" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+    <div class="modal-card">
+      <button id="modalCloseBtn" class="close-btn" type="button" aria-label="关闭弹窗">✕</button>
+      <div class="modal-copy">
+        <h3 id="modalTitle" class="modal-title">WORKS</h3>
+        <p id="modalDesc" class="modal-desc"></p>
+        <button id="openDetailBtn" class="open-detail-btn" type="button">进入作品详情</button>
+      </div>
+      <div class="modal-image">
+        <img id="modalImg" src="" alt="作品封面">
+      </div>
+    </div>
+  </div>
+
+  <div id="detailHint" class="floating-hint" aria-hidden="true">滑动鼠标滚轮查看更多作品 →</div>
+
+  <div id="detailPage" class="detail" aria-hidden="true">
+    <div id="detailScroller" class="detail-scroller">
+      <div class="detail-intro">
+        <div class="meta-row">
+          <span class="meta-chip">精选项目</span>
+          <span class="meta-chip">外链可查看原文 / 原视频</span>
+        </div>
+        <button id="detailCloseBtn" class="back-btn" type="button">← 返回作品目录</button>
+        <h2 id="detailTitle" class="detail-title">项目详情</h2>
+        <p id="detailInfo" class="detail-info"></p>
+      </div>
+    </div>
+  </div>
+
+<script>
+const worksData = [
+  {
+    title: "文字作品",
+    desc: "擅长多场景文案创作，涵盖文旅宣传、政企党建、时尚娱乐等内容赛道，兼顾文字严谨性、内容质感与新媒体传播力。",
+    img: "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=800",
+    items: [
+      { link: "https://mp.weixin.qq.com/s/DLliFnneP6bbty28GjSc2A", img: "https://mmbiz.qpic.cn/mmbiz_jpg/sG809RfRCicjLYAwHvmHibxJXlZJN0CvnUmmL1grWiaeKdicHSZoQG8qVBYicbI8G2O4CcvqicCibQ2FwKre4okOlvJGQ/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1", title: "文案作品 01", desc: "万人活动报道类" },
+      { link: "https://mp.weixin.qq.com/s/TvTUTDbbRGr3HRwdFHjY4g", img: "https://mmbiz.qpic.cn/mmbiz_png/sG809RfRCicgOgGeqknrQFAutw60sq02OBEsUobNdPSHwAz5eryPAMnOewQEecicz3eJpXE6Wp129XTTvJ2KdgIA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1", title: "文案作品 02", desc: "官方活动招募类" },
+      { link: "https://mp.weixin.qq.com/s/5zZz-OnAsbDnea8mGsgq3w", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/9lPOeMRvTA5JBEoSCkeoIJmickqrZyK6Nx2VD1cHhNYnkaTyUaGB1ty7Z0rK56W2vicanib2E6AvqMIIkh7K9Bqzg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "文案作品 03", desc: "公司年度总结类" },
+      { link: "https://mp.weixin.qq.com/s/WNNTxMzpryNUOTV-Qxdz5g", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArknvBSTGxRA4AjebGRzQOEM7icEs3mYaeZcXXc9xOFxCgEjzAxJnVTAbQ1iasaZjvQ6G8gZTJFxpRTH1g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "文案作品 04", desc: "时尚娱乐热点类" },
+      { link: "https://mp.weixin.qq.com/s/eQrYfgCC7iVRux-Akj-rjw", img: "https://mmbiz.qpic.cn/mmbiz_jpg/sG809RfRCicgfJImeQdzXtzXgFDRAoGXLK6dJhiaicbk78LTJxkND1ZibS3w0mBORLZuXjGno2k7W5A0wUoJoTpy3A/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1#", title: "文案作品 05", desc: "文旅传播类" }
+    ]
+  },
+  {
+    title: "排版作品",
+    desc: "拥有成熟的秀米排版设计功底，可独立完成多风格图文制作、版式创意设计与内容视觉升级，把控整体版面调性。",
+    img: "https://mmbiz.qpic.cn/sz_mmbiz_png/KOCT6pArknu373dns2Rg4UOEpQU00iayIWzibWfFd71uXLicPVO3fD34lsdvajv6So55NLXIlmQibyjHAoBoBH0NUQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1",
+    items: [
+      { link: "https://mp.weixin.qq.com/s/RhBMMCvSM4kWRKnVbjMTEA", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArknuGSl07IwRzKSEYY3VXpvxUBQC9ibPzmnsHRtYqunPDgeCRI5GVofM5rcfTxGNxnBES0Fia92Hfbk2Q/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "排版作品 01", desc: "陈嫣冉：她的艺术宇宙" },
+      { link: "https://mp.weixin.qq.com/s/2sBnjbCeRGe_FS8Cbhn9kA", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArkntU7Z2EC7RX9ZUxOtRttcz1kB4dnI7Z7GdcX76LvYVVFuC5ib2C24WxQ6Wkl2X7namYicpkP9h42w2g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "排版作品 02", desc: "何泓姗：戏影旅途" },
+      { link: "https://mp.weixin.qq.com/s/QCnj0wHId0QsO1_D4ByJ8A", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArknuFWbWPH8lmjicibQ3CdreVeQNSAGeuibkdlLicflO4qwNj8UwrUKn3obB0dlM2iaicDuANlUNUGO7Sg2vg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "排版作品 03", desc: "足球上的江苏：跟着苏超去旅行" },
+      { link: "https://mp.weixin.qq.com/s/WNNTxMzpryNUOTV-Qxdz5g", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArknvBSTGxRA4AjebGRzQOEM7icEs3mYaeZcXXc9xOFxCgEjzAxJnVTAbQ1iasaZjvQ6G8gZTJFxpRTH1g/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "排版作品 04", desc: "从荧幕到时尚场，她们靠什么活成风格主角？" }
+    ]
+  },
+  {
+    title: "视频作品",
+    desc: "熟练掌握视频剪辑全流程操作，擅长后期剪辑包装，注重镜头逻辑与画面审美，平衡成片完整度与新媒体传播力。",
+    img: "https://images.unsplash.com/photo-1492724441997-5dc865305da7?w=800",
+    items: [
+      { link: "https://weibo.com/6189108974/5287211018486802", img: "https://mmbiz.qpic.cn/mmbiz_jpg/BmTDvkQTDBl3lh191Z82XG4ZIeOnC7KSibj2KiarZ0KichTPFyeZ4PtUB17HLCVCgO7hNl3zPVXgiaXwVb07MEotd8dTHTYO9UguL68V6LYLBMo/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 01", desc: "郜思雯秘境花语视觉大片" },
+      { link: "https://weibo.com/6189108974/5248148626999558", img: "https://mmbiz.qpic.cn/mmbiz_jpg/oe1IVM18TegH2xco3hZAeMlL4WDpFzOpSG0ZFrEn6TylwnsEZoh7Z6mOvIMdWXjy1xicPWOIDQQ2tnNuibWQFz9w/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 02", desc: "孙雪宁派对绮梦大片" },
+      { link: "https://weibo.com/6189108974/5222388887456658", img: "https://mmbiz.qpic.cn/mmbiz_jpg/oe1IVM18TejNowPqnyrsRpvYoWmAiapIq6ToeHIibFScufK6sdcGaNqOQKbwgvgb4W1x0Z1RNIyDvMyh6sIPwb4Q/640?wx_fmt=jpeg&from=appmsg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 03", desc: "肖燕复古情绪大片" },
+      { link: "https://weibo.com/6189108974/5212528919448405", img: "https://mmbiz.qpic.cn/mmbiz_jpg/oe1IVM18TegmTFc6SfESu7x44rFiaTJILdDLFbAK0q4HePH5brwpWibQr3zl8KMqicibIn8RoudFDzxXJRzC1jUEEw/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 04", desc: "范帅琦自在逐光大片" },
+      { link: "https://weibo.com/7889289236/5216545391249014", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArkntU7Z2EC7RX9ZUxOtRttcz10NgDDS2iao4wzGsv84tgicsVkCt82nicdANZjsoeiafHVnAD8Pw1UkycSQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 05", desc: "何泓姗蝶舞流光大片" },
+      { link: "https://weibo.com/7889289236/5237564057323159", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/KOCT6pArknvSuFqyz5QwPpXJy9pZDZvTgPqibVAficicXSjmiakTDIicjUtsxnt3k6Od6j6YToFMKV9HIxiaHkpV6zuQ/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 06", desc: "赖美云沐光向暖大片" },
+      { link: "https://video.weibo.com/show?fid=1034:5272346907574361", img: "https://mmbiz.qpic.cn/sz_mmbiz_jpg/XbiblN9zBiaGUT5gK9PgMSIhhrqGv3CeCWr4o6dTIeUvSEmBibGBYOSSILFf9tFnSFOR71eYhBGJpWRhZSA5uacQMlDFiaCIVGW8TGzqZK6eYqU/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1", title: "视频作品 07", desc: "王璐瑶静驭锋芒大片" }
+    ]
+  }
+];
+
+const state = {
+  activeIdx: 0,
+  rotation: 0,
+  lastFocused: null,
+  drag: { isDown:false, startX:0, scrollLeft:0 }
+};
+
+const body = document.body;
+const loader = document.getElementById('loader');
+const loaderLine = document.getElementById('loaderLine');
+const loaderText = document.getElementById('loaderText');
+const donutCircle = document.getElementById('donutCircle');
+const worksSection = document.getElementById('works-section');
+const modalOverlay = document.getElementById('modalOverlay');
+const modalTitle = document.getElementById('modalTitle');
+const modalDesc = document.getElementById('modalDesc');
+const modalImg = document.getElementById('modalImg');
+const modalCloseBtn = document.getElementById('modalCloseBtn');
+const openDetailBtn = document.getElementById('openDetailBtn');
+const detailPage = document.getElementById('detailPage');
+const detailScroller = document.getElementById('detailScroller');
+const detailHint = document.getElementById('detailHint');
+const detailTitle = document.getElementById('detailTitle');
+const detailInfo = document.getElementById('detailInfo');
+const detailCloseBtn = document.getElementById('detailCloseBtn');
+let detailHintTimer = null;
+
+function runLoader(){
+  loaderLine.style.width = '200px';
+  loaderText.style.opacity = '1';
+  loaderText.style.transform = 'translateY(0)';
+  setTimeout(() => loader.classList.add('hidden'), 1600);
+}
+
+function radius(){
+  return window.innerWidth < 640 ? 110 : window.innerWidth < 1024 ? 145 : 180;
+}
+
+function createDonutItems(){
+  donutCircle.innerHTML = '';
+  worksData.forEach((work, i) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'donut-segment';
+    button.textContent = work.title;
+    button.setAttribute('aria-label', `查看${work.title}`);
+    button.addEventListener('click', () => openModal(i));
+    donutCircle.appendChild(button);
+  });
+  updateDonutPositions(false);
+}
+
+function updateDonutPositions(animate=true){
+  const items = donutCircle.querySelectorAll('.donut-segment');
+
+  // 手动定义更“设计感”的角度（单位：弧度）
+  const customAngles = [
+    -Math.PI / 2,        // 上
+    Math.PI / 6,         // 右下
+    Math.PI * 5 / 6      // 左下
+  ];
+
+  items.forEach((seg, i) => {
+    const angle = customAngles[i] + state.rotation * 0.01;
+
+    const x = Math.cos(angle) * radius();
+    const y = Math.sin(angle) * radius();
+
+    seg.style.transition = animate ? 'transform .45s ease' : 'none';
+    seg.style.transform = `translate(${x}px, ${y}px)`;
+  });
+}
+
+function openModal(idx){
+  state.activeIdx = idx;
+  state.lastFocused = document.activeElement;
+  const data = worksData[idx];
+  modalTitle.textContent = data.title;
+  modalDesc.textContent = data.desc;
+  modalImg.src = data.img;
+  modalImg.alt = `${data.title}封面图`;
+  modalOverlay.classList.add('visible');
+  body.classList.add('overflow-lock');
+  modalCloseBtn.focus();
+// 高亮当前选中
+document.querySelectorAll('.donut-segment').forEach((el, i) => {
+  if (i === idx) {
+    el.style.background = '#111';
+    el.style.color = '#fff';
+  } else {
+    el.style.background = '#fff';
+    el.style.color = '#111';
+  }
+});
+}
+
+function closeModal(restoreFocus=true){
+  modalOverlay.classList.remove('visible');
+  if(!detailPage.classList.contains('visible')){
+    body.classList.remove('overflow-lock');
+  }
+  if(restoreFocus && state.lastFocused && typeof state.lastFocused.focus === 'function'){
+    state.lastFocused.focus();
+  }
+}
+
+function buildDetailCards(){
+  detailScroller.querySelectorAll('.generated-card').forEach(node => node.remove());
+  const data = worksData[state.activeIdx];
+  detailTitle.textContent = data.title;
+  detailInfo.textContent = data.desc;
+
+  data.items.forEach((item, i) => {
+    const card = document.createElement('article');
+    card.className = 'generated-card work-card';
+    card.innerHTML = `
+      <a class="work-link" href="${item.link}" target="_blank" rel="noopener noreferrer" aria-label="打开${item.title}">
+        <img src="${item.img}" alt="${item.title}" loading="lazy">
+        <div class="click-overlay">点击图片查看</div>
+      </a>
+      <div>
+        <div class="item-meta">Item / ${String(i + 1).padStart(2, '0')}</div>
+        <div class="item-title">${item.title}</div>
+        <div class="item-desc">${item.desc || ''}</div>
+      </div>
+    `;
+    detailScroller.appendChild(card);
+  });
+  attachImageFallbacks(detailScroller);
+}
+
+function getHintText(){
+  return window.innerWidth < 768 ? '向下滑动查看更多作品 ↓' : '滑动鼠标滚轮查看更多作品 →';
+}
+
+function openDetailPage(){
+  buildDetailCards();
+  closeModal(false);
+  detailPage.classList.add('visible');
+  detailPage.setAttribute('aria-hidden', 'false');
+  body.classList.add('overflow-lock');
+  detailPage.scrollTo({ left: 0, top: 0, behavior: 'auto' });
+  detailHint.textContent = getHintText();
+  detailHint.classList.add('visible');
+  clearTimeout(detailHintTimer);
+  detailHintTimer = setTimeout(() => detailHint.classList.remove('visible'), 3000);
+  detailCloseBtn.focus();
+}
+
+function closeDetailPage(){
+  clearTimeout(detailHintTimer);
+  detailHint.classList.remove('visible');
+  detailPage.classList.remove('visible');
+  detailPage.setAttribute('aria-hidden', 'true');
+  body.classList.remove('overflow-lock');
+  if(state.lastFocused && typeof state.lastFocused.focus === 'function'){
+    state.lastFocused.focus();
+  }
+}
+
+function onWheelRotate(e){
+  if(detailPage.classList.contains('visible') && window.innerWidth >= 1024) return;
+  const rect = worksSection.getBoundingClientRect();
+  const inView = rect.top < window.innerHeight && rect.bottom > 0;
+  if(!inView) return;
+  state.rotation += e.deltaY * 0.05;
+  updateDonutPositions(true);
+}
+
+function onDetailWheel(e){
+  if(!detailPage.classList.contains('visible')) return;
+  if(window.innerWidth < 1024) return;
+  const delta = Math.abs(e.deltaY) > Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+  const maxScrollLeft = detailPage.scrollWidth - detailPage.clientWidth;
+  if(maxScrollLeft <= 0) return;
+  e.preventDefault();
+  detailPage.scrollLeft += delta;
+}
+
+function onDetailPointerDown(e){
+  if(!detailPage.classList.contains('visible') || window.innerWidth < 1024) return;
+  state.drag.isDown = true;
+  state.drag.startX = e.pageX;
+  state.drag.scrollLeft = detailPage.scrollLeft;
+  detailPage.style.cursor = 'grabbing';
+}
+
+function onDetailPointerMove(e){
+  if(!state.drag.isDown || window.innerWidth < 1024) return;
+  const walk = e.pageX - state.drag.startX;
+  detailPage.scrollLeft = state.drag.scrollLeft - walk;
+}
+
+function onDetailPointerUp(){
+  state.drag.isDown = false;
+  detailPage.style.cursor = window.innerWidth >= 1024 ? 'grab' : '';
+}
+
+function onKeydown(e){
+  if(e.key === 'Escape'){
+    if(detailPage.classList.contains('visible')){
+      closeDetailPage();
+    } else if(modalOverlay.classList.contains('visible')){
+      closeModal();
+    }
+  }
+  if(detailPage.classList.contains('visible') && window.innerWidth >= 1024){
+    if(e.key === 'ArrowRight') detailPage.scrollLeft += 220;
+    if(e.key === 'ArrowLeft') detailPage.scrollLeft -= 220;
+  }
+}
+
+function attachImageFallbacks(root=document){
+  root.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      img.classList.add('fallback');
+      if(!img.dataset.fallbackDone){
+        img.dataset.fallbackDone = '1';
+        img.alt = img.alt || '图片加载失败';
+      }
+    }, { once:true });
+  });
+}
+
+modalOverlay.addEventListener('click', (e) => {
+  if(e.target === modalOverlay) closeModal();
+});
+modalCloseBtn.addEventListener('click', () => closeModal());
+openDetailBtn.addEventListener('click', openDetailPage);
+detailCloseBtn.addEventListener('click', closeDetailPage);
+window.addEventListener('keydown', onKeydown);
+window.addEventListener('wheel', onWheelRotate, { passive:true });
+detailPage.addEventListener('wheel', onDetailWheel, { passive:false });
+detailPage.addEventListener('pointerdown', onDetailPointerDown);
+window.addEventListener('pointermove', onDetailPointerMove);
+window.addEventListener('pointerup', onDetailPointerUp);
+window.addEventListener('resize', () => {
+  updateDonutPositions(false);
+  if(detailPage.classList.contains('visible')){
+    detailHint.textContent = getHintText();
+  }
+  detailPage.style.cursor = window.innerWidth >= 1024 ? 'grab' : '';
+});
+
+window.addEventListener('load', () => {
+  runLoader();
+  attachImageFallbacks();
+  detailPage.style.cursor = window.innerWidth >= 1024 ? 'grab' : '';
+});
+
+createDonutItems();
+</script>
+</body>
+</html>
